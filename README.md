@@ -5,7 +5,7 @@
 ## Run RoLaGuard from a virtual machine
 
 The easiest way to run RoLaGuard is to use a VM with Minikube, with all components preinstalled, and ready to use.
-1. Download the VM file from [here](https://rolaguard-community.s3-us-west-2.amazonaws.com/ova/2020-04-15/rolaguard-minikube.ova), it's an OVA file, you could import on any hosted hypervisor software (we recommend [VirtualBox](https://www.virtualbox.org/wiki/Downloads))
+1. Download the VM file from [here](https://rolaguard-community.s3-us-west-2.amazonaws.com/ova/rolaguard-minikube_20200418.ova), it's an OVA file, you could import on any hosted hypervisor software (we recommends VirtualBox)
 1. Import the VM downloaded into your system: `VBoxManage import rolaguard-minikube.ova`
 1. Power on the VM imported: `VBoxManage startvm "rolaguard-minikube" --type headless`
 1. Access to RoLaGuard from your browser: http://localhost:30003 
