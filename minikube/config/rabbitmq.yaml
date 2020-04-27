@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+spec:
+  selector:
+    app: rolaguard
+    tier: rabbitmq
+  ports:
+  - protocol: TCP
+    port: 5672
+    targetPort: 5672
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+spec:
+  selector:
+    matchLabels:
+      app: rolaguard
+      tier: rabbitmq
+      track: community
+  replicas: 1
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: rolaguard
+        tier: rabbitmq
+        track: community
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: rabbitmq
+          image: "rabbitmq:3-management"
+          imagePullPolicy: "Always"
+          ports:
+            - name: api
+              containerPort: 5672
+          envFrom:
+            - configMapRef:
+                name: env-var-default
+            - configMapRef:
+                name: env-var-rabbitmq
+
+

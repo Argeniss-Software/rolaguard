@@ -1,0 +1,29 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: db-populate-stats-counters
+spec:
+  schedule: "*/5 * * * *" # At every 5 minutes
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 240 # time to allow job to run: 4 min.
+      backoffLimit: 5
+      template:
+        spec:
+          containers:
+          - name: db-populate-stats-counters
+            image: "system-backoffice:community" # TODO: https://kubernetes.io/docs/concepts/configuration/overview/#container-images
+            imagePullPolicy: "Never"
+            args:
+            - /bin/sh
+            - -c
+            - python pg_admin.py scripts/sql/db_sp_populate_stats_counters.sql
+            envFrom:
+              - configMapRef:
+                  name: env-var-default
+              - configMapRef:
+                  name: env-var-postgres
+          restartPolicy: OnFailure
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3

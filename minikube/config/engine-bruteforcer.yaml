@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: engine-bruteforcer
+spec:
+  selector:
+    matchLabels:
+      app: rolaguard
+      tier: engine-bruteforcer
+      track: community
+  replicas: 1
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: rolaguard
+        tier: engine-bruteforcer
+        track: community
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: engine-bruteforcer
+          image: "engine:community"
+          command: ["python3", "LafProcessData.py"]
+          args: ["-b"]
+          imagePullPolicy: "Never"
+          envFrom:
+            - configMapRef:
+                name: env-var-default
+            - configMapRef:
+                name: env-var-postgres
+            - configMapRef:
+                name: env-var-rabbitmq

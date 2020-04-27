@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: engine-analyzer
+spec:
+  selector:
+    matchLabels:
+      app: rolaguard
+      tier: engine-analyzer
+      track: community
+  replicas: 1
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: rolaguard
+        tier: engine-analyzer
+        track: community
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: engine-analyzer
+          image: "engine:community"
+          command: ["python3", "LafProcessData.py"]
+          args: ["-a"]
+          imagePullPolicy: "Never"
+          envFrom:
+            - configMapRef:
+                name: env-var-default
+            - configMapRef:
+                name: env-var-postgres
+            - configMapRef:
+                name: env-var-rabbitmq

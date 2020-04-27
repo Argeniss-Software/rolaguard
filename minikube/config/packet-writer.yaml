@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: packet-writer
+spec:
+  selector:
+    matchLabels:
+      app: rolaguard
+      tier: packet-writer
+      track: community
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rolaguard
+        tier: packet-writer
+        track: community
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: packet-writer
+          image: "packet-writer:community"
+          imagePullPolicy: "Never"
+          envFrom:
+            - configMapRef:
+                name: env-var-default
+            - configMapRef:
+                name: env-var-data-collectors
+            - configMapRef:
+                name: env-var-postgres
+            - configMapRef:
+                name: env-var-rabbitmq
+  revisionHistoryLimit: 1

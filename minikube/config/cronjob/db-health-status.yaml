@@ -1,0 +1,29 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: db-health-status
+spec:
+  schedule: "15 0/2 * * *" # At minute 15 past every 2nd hour from 0 through 23
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 1800 # time to allow job to run: 30 min.
+      backoffLimit: 5
+      template:
+        spec:
+          containers:
+          - name: db-health-status
+            image: "system-backoffice:community" # TODO: https://kubernetes.io/docs/concepts/configuration/overview/#container-images
+            imagePullPolicy: "Never"
+            args:
+            - /bin/sh
+            - -c
+            - python pg_admin.py scripts/sql/db_health_status.sql
+            envFrom:
+              - configMapRef:
+                  name: env-var-default
+              - configMapRef:
+                  name: env-var-postgres
+          restartPolicy: OnFailure
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3

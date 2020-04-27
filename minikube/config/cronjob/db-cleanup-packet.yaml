@@ -1,0 +1,29 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: db-cleanup-packet
+spec:
+  schedule: "0 23 * * 5" # At 23:00 on Friday
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 2700 # time to allow job to run: 45 minutes
+      backoffLimit: 5
+      template:
+        spec:
+          containers:
+          - name: db-cleanup-packet
+            image: "system-backoffice:community"
+            imagePullPolicy: "Never"
+            args:
+            - /bin/sh
+            - -c
+            - python pg_admin.py scripts/sql/db_cleanup_packet.sql
+            envFrom:
+              - configMapRef:
+                  name: env-var-default
+              - configMapRef:
+                  name: env-var-postgres
+          restartPolicy: OnFailure
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3

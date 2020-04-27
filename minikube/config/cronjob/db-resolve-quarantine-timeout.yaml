@@ -1,0 +1,29 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: db-resolve-quarantine-timeout
+spec:
+  schedule: "15,45 * * * *" # At minute 15 and 45
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 900 # time to allow job to run: 15 min.
+      backoffLimit: 5
+      template:
+        spec:
+          containers:
+          - name: db-resolve-quarantine-timeout
+            image: "system-backoffice:community"
+            imagePullPolicy: "Never"
+            args:
+            - /bin/sh
+            - -c
+            - python pg_admin.py scripts/sql/db_resolve_quarantine_timeout.sql
+            envFrom:
+              - configMapRef:
+                  name: env-var-default
+              - configMapRef:
+                  name: env-var-postgres
+          restartPolicy: OnFailure
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3

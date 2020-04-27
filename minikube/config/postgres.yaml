@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  selector:
+    app: rolaguard
+    tier: postgres
+  type: NodePort
+  ports:
+    - name: rds
+      port: 5432
+      targetPort: 5432
+      nodePort: 30432
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  selector:
+    matchLabels:
+      app: rolaguard
+      tier: postgres
+      track: community
+  replicas: 1
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: rolaguard
+        tier: postgres
+        track: community
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: postgres
+          image: "postgres:community"
+          imagePullPolicy: "Never"
+          ports:
+            - name: api
+              containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: env-var-postgres
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: env-var-postgres
+                  key: DB_NAME
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: env-var-postgres
+                  key: DB_USERNAME
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: env-var-postgres
+                  key: DB_PASSWORD
+

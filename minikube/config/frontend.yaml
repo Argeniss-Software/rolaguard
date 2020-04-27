@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:  
+  name: frontend
+spec:
+  selector:    
+    app: rolaguard
+  type: NodePort
+  ports:  
+  - name: http
+    port: 80
+    targetPort: 80
+    nodePort: 30003
+    protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  selector:
+    matchLabels:
+      app: rolaguard
+      tier: frontend
+      track: community
+  replicas: 1
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: rolaguard
+        tier: frontend
+        track: community
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: frontend
+        image: "frontend:community"
+        imagePullPolicy: "Never"
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/usr/sbin/nginx","-s","quit"]
+        envFrom:
+          - configMapRef:
+              name: env-var-default
+          - configMapRef:
+              name: env-var-front-backend
+          - configMapRef:
+              name: env-var-frontend

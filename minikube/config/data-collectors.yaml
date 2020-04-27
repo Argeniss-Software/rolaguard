@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-collectors
+spec:
+  selector:
+    matchLabels:
+      app: rolaguard
+      tier: data-collectors
+      track: community
+  replicas: 1
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: rolaguard
+        tier: data-collectors
+        track: community
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: data-collectors
+          image: "data-collectors:community"
+          imagePullPolicy: "Never"
+          envFrom:
+            - configMapRef:
+                name: env-var-default
+            - configMapRef:
+                name: env-var-data-collectors
+            - configMapRef:
+                name: env-var-postgres
+            - configMapRef:
+                name: env-var-rabbitmq

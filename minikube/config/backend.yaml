@@ -1,0 +1,51 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: backend
+spec:
+  selector:
+    app: rolaguard
+    tier: backend
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  selector:
+    matchLabels:
+      app: rolaguard
+      tier: backend
+      track: community
+  replicas: 1
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: rolaguard
+        tier: backend
+        track: community
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: backend
+          image: "backend:community"
+          imagePullPolicy: "Never"
+          ports:
+            - name: api
+              containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: env-var-default
+            - configMapRef:
+                name: env-var-front-backend
+            - configMapRef:
+                name: env-var-backend
+            - configMapRef:
+                name: env-var-postgres
+            - configMapRef:
+                name: env-var-rabbitmq
