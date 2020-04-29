@@ -8,17 +8,17 @@ The easiest way to run RoLaGuard is to use a VM with Minikube, with all componen
 1. Download the VM file from [here](https://rolaguard-community.s3-us-west-2.amazonaws.com/ova/rolaguard-minikube_20200418.ova), it's an OVA file, you could import on any hosted hypervisor software (we recommends VirtualBox)
 1. Import the VM downloaded into your system: `VBoxManage import rolaguard-minikube.ova`
 1. Power on the VM imported: `VBoxManage startvm "rolaguard-minikube" --type headless`
-1. Access to RoLaGuard from your browser: http://localhost:30003 
-<br><br>
+1. Once the VM is running, it will start to load all the RoLaGuard services. Therefore, it is best to wait for at least 10 minutes before accessing the system.
+1. Write this address in the web browser: http://localhost:30003
+1. Sign in to the system using admin/admin as user and password (remember to change the password!!). An open network server is pre-loaded for testing, therefore, some alerts must appear. 
 
->###### Notes:
+> Notes:
 >* To power off your VM, just run: `VBoxManage controlvm "rolaguard-minikube" acpipowerbutton`
 >* If it's needed, you could access to your VM: `ssh -p 11122 root@127.0.0.1` with password: root
 >* And also, you could see the Kubernetes Dashboard [here](http://127.0.0.1:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/)
  
-
-<br><br>
 ## Run RoLaGuard in a Minikube cluster
+
 1. Clone this project and its submodules `git clone --recurse-submodules https://github.com/Argeniss-Software/rolaguard`
 
 To install [Minikube](https://minikube.sigs.k8s.io/) and configure RoLaGuard Community Edition on a local Kubernetes cluster follow the instructions for your OS:
@@ -37,3 +37,5 @@ To access the system use these credentials:
 * password: admin
 
 > _Please, remember to change the password!!_
+
+An open network server is pre-loaded, therefore, some alerts must appear.
