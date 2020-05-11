@@ -19,6 +19,17 @@ services:
     env_file:
       - ./config/postgres.env
 
+      
+  system-backoffice:
+    container_name: 'system-backoffice'
+    image: rolaguardcommunity/system-backoffice
+    restart: always
+    depends_on:
+     - postgres 
+    env_file:
+      - ./config/postgres.env
+      - ./config/default.env
+
   backend:
     container_name: 'backend'
     image: rolaguardcommunity/backend
