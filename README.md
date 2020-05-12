@@ -48,6 +48,6 @@ To access the system use these credentials:
 * user: admin
 * password: admin
 
-> _Please, remember to change the password!!_
+> _Please, remember to change the password_
 
 An open network server is pre-loaded, therefore, some alerts must appear.
