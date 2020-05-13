@@ -17,7 +17,7 @@ The easiest way to run RoLaGuard is to use a VM with all components preinstalled
 
 ### Log into RolaGuard
 1. Once the VM is running, it will start to load all the RoLaGuard services.
-1. Follow this link http://localhost:30000.
+1. Wait a couple minutes to let all the components start and follow this link http://localhost:30000.
 1. Sign in to the system using admin/admin as user and password (remember to change the password). An open network server is pre-loaded for testing, therefore, some alerts must appear. 
 
 > Notes:
