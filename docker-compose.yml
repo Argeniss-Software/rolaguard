@@ -5,6 +5,7 @@ services:
   rabbitmq:
    container_name: 'rabbitmq'
    image: rabbitmq:3-management
+   restart: always
    expose:
      - "5672"
    env_file:
@@ -14,11 +15,12 @@ services:
     container_name: 'postgres'
     image: rolaguardcommunity/postgres
     restart: always
-    expose:
-      - "5432"  
+    volumes:
+      - ./postgres/db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432" 
     env_file:
       - ./config/postgres.env
-
       
   system-backoffice:
     container_name: 'system-backoffice'
