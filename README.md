@@ -4,7 +4,7 @@
 
 ## Run RoLaGuard from a virtual machine
 
-The easiest way to run RoLaGuard is to use a VM with all components preinstalled and ready to use. Download the VM file from [here](https://rolaguard-community.s3-us-west-2.amazonaws.com/ova/rolaguard-compose.ova). It's an OVA file you can import on any hosted hypervisor software (we recommend [VirtualBox](https://www.virtualbox.org/wiki/Downloads)).
+The easiest way to run RoLaGuard is to use a VM with all components preinstalled and ready to use. Download the VM file from [here](https://rolaguard-community.s3-us-west-2.amazonaws.com/ova/rolaguard-compose.ova)(MD5 checksum= 0e4a299dc7787d51accb4e923b1cc0ca). It's an OVA file you can import on any hosted hypervisor software (we recommend [VirtualBox](https://www.virtualbox.org/wiki/Downloads)).
 
 ### Using VirtualBox GUI
 1. Open VirtualBox
