@@ -68,6 +68,7 @@ services:
     env_file: 
       - ./config/postgres.env
       - ./config/rabbitmq.env
+      - ./config/aws_s3.env
       - ./config/default.env
 
   data-collectors:
