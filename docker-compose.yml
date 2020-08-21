@@ -6,8 +6,9 @@ services:
    container_name: 'rabbitmq'
    image: rabbitmq:3-management
    restart: always
-   expose:
-     - "5672"
+   ports:
+     - "5672:5672"
+     - "15672:15672"
    env_file:
      - ./config/rabbitmq.env
 
@@ -36,8 +37,8 @@ services:
     container_name: 'backend'
     image: rolaguardcommunity/backend
     restart: always
-    expose:
-     - "5000"
+    ports:
+     - "5000:5000"
     depends_on:
      - rabbitmq
      - postgres 
