@@ -14,6 +14,12 @@ pull-submods-master: # pull all submodules from master
 pull-submods-develop: # pull all submodules from develop
 	git submodule foreach git pull origin develop
 
+build-%:
+	docker build -t rolaguardcommunity/$*:latest ./$*
+
+run-%:
+	docker-compose up -d $*
+
 build-imgs-local: # build images locally
 	docker build -t rolaguardcommunity/postgres:latest ./postgres
 	docker build -t rolaguardcommunity/backend:latest ./backend
