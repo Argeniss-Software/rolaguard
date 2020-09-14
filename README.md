@@ -51,3 +51,7 @@ To access the system use these credentials:
 > _Please, remember to change the password_
 
 An open network server is pre-loaded, therefore, some alerts must appear.
+
+
+## Run RoLaGuard using Makefile
+To start up the system with docker images running locally in your computer, simply run _make all_ command. This will clean up the database, pull the develop branch of all modules, and build the images. It'll take a time to finish its execution, so please be patient. Visit the [Makefile](./Makefile) to see other options. 
