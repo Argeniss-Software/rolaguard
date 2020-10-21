@@ -1,0 +1,111 @@
+version: '3'
+
+services:
+
+  rabbitmq:
+   container_name: 'rabbitmq'
+   image: rabbitmq:3-management
+   restart: always
+   ports:
+     - "5672:5672"
+     - "15672:15672"
+   env_file:
+     - ./config/rabbitmq.env
+
+  postgres:
+    container_name: 'postgres'
+    image: rolaguardcommunity/postgres
+    restart: always
+    volumes:
+      - ./postgres/db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432" 
+    env_file:
+      - ./config/postgres.env
+      
+  system-backoffice:
+    container_name: 'system-backoffice'
+    image: rolaguardcommunity/system-backoffice
+    restart: always
+    depends_on:
+     - postgres 
+    env_file:
+      - ./config/postgres.env
+      - ./config/default.env
+
+  backend:
+    container_name: 'backend'
+    image: rolaguardcommunity/backend
+    restart: always
+    ports:
+     - "5000:5000"
+    depends_on:
+     - rabbitmq
+     - postgres 
+    env_file:
+      - ./config/postgres.env
+      - ./config/backend.env
+      - ./config/rabbitmq.env
+      - ./config/default.env
+
+  frontend:
+    container_name: 'frontend'
+    image: rolaguardcommunity/frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "30000:80" 
+    env_file:
+      - ./config/frontend.env
+      - ./config/default.env
+
+  packet-writer:
+    container_name: 'packet-writer'
+    image: rolaguardcommunity/packet-writer
+    restart: always
+    depends_on:
+      - rabbitmq
+    env_file: 
+      - ./config/postgres.env
+      - ./config/rabbitmq.env
+      - ./config/aws_s3.env
+      - ./config/default.env
+
+  data-collectors:
+    container_name: 'data-collectors'
+    image: rolaguardcommunity/data-collectors
+    restart: always
+    depends_on:
+      - backend
+    env_file: 
+      - ./config/postgres.env
+      - ./config/rabbitmq.env
+      - ./config/default.env
+      - ./config/data_collectors.env
+  
+  engine-analyzer:
+    container_name: 'engine-analyzer'
+    image: rolaguardcommunity/engine
+    restart: always
+    depends_on:
+      - postgres
+      - rabbitmq
+    command: "-a"
+    env_file: 
+      - ./config/postgres.env
+      - ./config/rabbitmq.env
+      - ./config/default.env
+
+  engine-bruteforcer:
+    container_name: 'engine-bruteforcer'
+    image: rolaguardcommunity/engine
+    restart: always
+    depends_on: 
+      - postgres
+      - rabbitmq 
+    command: "-b"
+    env_file: 
+      - ./config/postgres.env
+      - ./config/rabbitmq.env
+      - ./config/default.env    
