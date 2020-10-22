@@ -1,29 +1,5 @@
-Argeniss
-
 # RoLaGuard Community Edition
 
-## Run RoLaGuard from a virtual machine
-
-The easiest way to run RoLaGuard is to use a VM with all components preinstalled and ready to use. Download the VM file from [here](https://rolaguard-community.s3-us-west-2.amazonaws.com/ova/rolaguard-compose.ova)(MD5 checksum= 0e4a299dc7787d51accb4e923b1cc0ca). It's an OVA file you can import on any hosted hypervisor software (we recommend [VirtualBox](https://www.virtualbox.org/wiki/Downloads)).
-
-### Using VirtualBox GUI
-1. Open VirtualBox
-1. File -> Import Appliance
-1. Locate your OVA file in the import box -> Continue -> Import
-
-### Using VirtualBox in the console
-1. Import the VM downloaded into your system: `VBoxManage import path/to/rolaguard-compose.ova`
-1. Power on the VM imported: `VBoxManage startvm "rolaguard-compose" --type headless`
-
-### Log into RolaGuard
-1. Once the VM is running, it will start to load all the RoLaGuard services.
-1. Wait a couple minutes to let all the components start and follow this link http://localhost:30000.
-1. Sign in to the system using admin/admin as user and password (remember to change the password). An open network server is pre-loaded for testing, therefore, some alerts must appear. 
-
-> Notes:
->* To power off your VM, just run: `VBoxManage controlvm "rolaguard-compose" acpipowerbutton`
->* If it's needed, you could access to your VM: `ssh -p 11122 root@127.0.0.1` with password: root
- 
 ## Run RoLaGuard using docker-compose
 
 To install docker-compose, go to [this link](https://docs.docker.com/compose/install/) and follow the instructions for your OS. Note that for Windows and MacOS, docker-compose is included in Docker desktop. For Linux, you'd have to download both programs separately
