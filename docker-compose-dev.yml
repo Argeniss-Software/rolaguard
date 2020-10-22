@@ -7,8 +7,8 @@ services:
    image: rabbitmq:3-management
    restart: always
    ports:
-     - "5672"
-     - "15672"
+     - "5672:5672"
+     - "15672:15672"
    env_file:
      - ./config/rabbitmq.env
 
@@ -19,7 +19,7 @@ services:
     volumes:
       - ./postgres/db-data:/var/lib/postgresql/data
     ports:
-      - "5432" 
+      - "5432:5432" 
     env_file:
       - ./config/postgres.env
       
@@ -38,7 +38,7 @@ services:
     image: rolaguardcommunity/backend
     restart: always
     ports:
-     - "5000"
+     - "5000:5000"
     depends_on:
      - rabbitmq
      - postgres 
