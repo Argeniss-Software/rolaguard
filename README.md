@@ -1,5 +1,7 @@
 # RoLaGuard Community Edition
 
+This repository contains RoLaGuard Community Edition, a intrusion detection system for LoRaWAN networks. For the Enterprise version enter [here](https://rolaguard.com).
+
 ## Run RoLaGuard using docker-compose
 
 To install docker-compose, go to [this link](https://docs.docker.com/compose/install/) and follow the instructions for your OS. Note that for Windows and MacOS, docker-compose is included in Docker desktop. For Linux, you'd have to download both programs separately
