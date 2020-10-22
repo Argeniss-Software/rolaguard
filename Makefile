@@ -35,7 +35,7 @@ up:
 
 # up-dev use docker-compose-dev.yml in order to publish ports for easy local development
 up-dev:
-    docker-compose -f docker-compose-dev.yml up -d
+	docker-compose -f docker-compose-dev.yml up -d
 
 up-debug:
 	docker-compose up
