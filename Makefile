@@ -47,7 +47,7 @@ drm:
 	docker-compose rm
 
 cdb: #clean db
-	cd postgres && sudo rm -Rf db-data/
+	cd postgres && sudo rm -Rf db-data/ && sudo rm -Rf ~/rolaguard/db-data
 
 # basically clean all, pull develop on submodules, build images locally and start up the system using docker-compose.yml
 all: dstop drm cdb pull-all build-imgs-local up
