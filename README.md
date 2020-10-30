@@ -1,6 +1,8 @@
 # RoLaGuard Community Edition
 
-This repository contains RoLaGuard Community Edition, a intrusion detection system for LoRaWAN networks. For the Enterprise version enter [here](https://rolaguard.com).
+A LoRaWAN Operations, Cybersecurity & Compliance Management Platform.
+
+For the Enterprise version enter [here](https://rolaguard.com).
 
 ## Run RoLaGuard using docker-compose
 
