@@ -40,3 +40,7 @@ The folder used to persist data can be changed modifying the field services->pos
 ## Run RoLaGuard using Makefile
 
 To start up the system locally with all the modules running inside docker containers, simply run `make all` command. This will clean up the database, pull the develop branch of all modules, and build the images. It'll take a time to finish its execution, so please be patient. Go to the [Makefile](./Makefile) to see other options.
+
+## Documentation
+
+* [Instruction for TTN connection](./documentation/ttn_connection.pdf)
