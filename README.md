@@ -44,3 +44,5 @@ To start up the system locally with all the modules running inside docker contai
 ## Documentation
 
 * [Instruction for TTN connection](./documentation/ttn_connection.pdf)
+
+* [Instruction for TTN v3 connection](./documentation/TTNv3 Connection.pdf)
