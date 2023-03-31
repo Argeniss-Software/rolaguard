@@ -25,7 +25,9 @@ services:
       
   system-backoffice:
     container_name: 'system-backoffice'
-    image: rolaguardcommunity/system-backoffice
+    build:
+      context: system-backoffice
+      dockerfile: Dockerfile
     restart: always
     depends_on:
      - postgres 
@@ -35,7 +37,9 @@ services:
 
   backend:
     container_name: 'backend'
-    image: rolaguardcommunity/backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
     restart: always
     ports:
      - "5000"
@@ -50,7 +54,9 @@ services:
 
   frontend:
     container_name: 'frontend'
-    image: rolaguardcommunity/frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
     restart: always
     depends_on:
       - backend
@@ -62,7 +68,9 @@ services:
 
   packet-writer:
     container_name: 'packet-writer'
-    image: rolaguardcommunity/packet-writer
+    build:
+      context: packet-writer
+      dockerfile: Dockerfile
     restart: always
     depends_on:
       - rabbitmq
@@ -74,7 +82,9 @@ services:
 
   data-collectors:
     container_name: 'data-collectors'
-    image: rolaguardcommunity/data-collectors
+    build:
+      context: data-collectors
+      dockerfile: Dockerfile
     restart: always
     depends_on:
       - backend
@@ -85,27 +95,16 @@ services:
       - ./config/data_collectors.env
   
   engine-analyzer:
-    container_name: 'engine-analyzer'
-    image: rolaguardcommunity/engine
+    container_name: engine
+    build:
+      context: engine
+      dockerfile: Dockerfile
     restart: always
     depends_on:
       - postgres
       - rabbitmq
-    command: "-a"
-    env_file: 
-      - ./config/postgres.env
-      - ./config/rabbitmq.env
-      - ./config/default.env
-
-  engine-bruteforcer:
-    container_name: 'engine-bruteforcer'
-    image: rolaguardcommunity/engine
-    restart: always
-    depends_on: 
-      - postgres
-      - rabbitmq 
     command: "-b"
     env_file: 
       - ./config/postgres.env
       - ./config/rabbitmq.env
-      - ./config/default.env    
+      - ./config/default.env  
