@@ -94,8 +94,8 @@ services:
       - ./config/default.env
       - ./config/data_collectors.env
   
-  engine:
-    container_name: 'engine'
+  engine-analyzer:
+    container_name: 'engine-analyzer'
     build:
       context: engine
       dockerfile: Dockerfile
@@ -103,8 +103,23 @@ services:
     depends_on:
       - postgres
       - rabbitmq
-    command: "-b"
+    command: "-a"
     env_file: 
       - ./config/postgres.env
       - ./config/rabbitmq.env
       - ./config/default.env
+
+  engine-bruteforcer:
+    container_name: 'engine-bruteforcer'
+    build:
+      context: engine
+      dockerfile: Dockerfile
+    restart: always
+    depends_on: 
+      - postgres
+      - rabbitmq 
+    command: "-b"
+    env_file: 
+      - ./config/postgres.env
+      - ./config/rabbitmq.env
+      - ./config/default.env    
