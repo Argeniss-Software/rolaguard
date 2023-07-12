@@ -14,7 +14,9 @@ services:
 
   postgres:
     container_name: 'postgres'
-    image: rolaguardcommunity/postgres
+    build:
+      context: postgres
+      dockerfile: Dockerfile
     restart: always
     volumes:
       - ~/rolaguard/db-data:/var/lib/postgresql/data
