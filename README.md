@@ -5,7 +5,7 @@ A LoRaWAN Operations, Cybersecurity & Compliance Management Platform.
 Docker Compose is needed to run RoLaGuard. To install docker-compose, go to [this link](https://docs.docker.com/compose/install/) and follow the instructions for your OS. Note that for Windows and MacOS, docker-compose is included in Docker desktop. For Linux, you'd have to download both programs separately.
 
 Clone this project and its submodules with `git clone --recurse-submodules https://github.com/Argeniss-Software/rolaguard && cd rolaguard`
-> _If you are using Windows with WSL, make sure to clone this project and execute the following commands from the linux shell._
+> _If you are using Windows, make sure to clone this project and execute the following commands from the linux shell with WSL._
 
 ## Run RoLaGuard using Makefile
 
